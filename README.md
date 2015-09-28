@@ -2,4 +2,4 @@
 our first android gaaaame yaaay
 
 
-edited this :)
+fuck this!
