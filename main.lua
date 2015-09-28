@@ -1,8 +1,8 @@
 local _W = display.viewableContentWidth
 local _H = display.viewableContentHeight
-local soundID = audio.loadSound( "froot.wav" )
-local background = display.newImage("bg.jpg", display.contentCenterX, display.contentCenterY);
-local file_name = "froot.png";
+local soundID = audio.loadSound( "sounds/froot.wav" )
+local background = display.newImage("images/bg.jpg", display.contentCenterX, display.contentCenterY);
+local file_name = "images/froot.png";
 local halfW = display.viewableContentWidth / 2
 local halfH = display.viewableContentHeight / 2
 
