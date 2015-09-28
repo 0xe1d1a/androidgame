@@ -1,5 +1,3 @@
-local _W = display.viewableContentWidth
-local _H = display.viewableContentHeight
 local soundID = audio.loadSound( "sounds/froot.wav" )
 local background = display.newImage("images/bg.jpg", display.contentCenterX, display.contentCenterY);
 local file_name = "images/froot.png";
@@ -41,6 +39,8 @@ physics.addBody( borderLeft, "static", borderBodyElement )
 local borderRight = display.newRect( 550, 250, 1, 500 ) --right border
 --borderRight:setFillColor( 0, 0, 0, 0)		-- make invisible
 physics.addBody( borderRight, "static", borderBodyElement )
+
+---- Spawn objects ----
 
 for i=1,5 do
 	local view = display.newImage(file_name);
