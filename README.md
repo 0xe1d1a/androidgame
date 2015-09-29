@@ -49,3 +49,12 @@ local str = "foo ".."bar"
 10)
 
 x,y = y,x swap values
+
+11)Animation ( Image/sprite sheets)
+	local sheet1 = graphics.newImageSheet( "damn2b.png", { width=50, height=55, numFrames=6,  } )
+	local instance1 = display.newSprite( sheet1, { name="cat", start=1, count=6, time=200, loopCount=1} )
+	instance1.xScale = 1  --resize eikonas (1=100%)
+	instance1.yScale = 1  --resize
+	instance1.x = whiteTLX --sidetagmenes tou animation
+    instance1.y = whiteTLY -- same
+	instance1:play() 	--play
