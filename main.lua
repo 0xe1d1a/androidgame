@@ -40,7 +40,7 @@ end
 local unview = function( event )
 	if event.phase=="began" then
 		counter=counter+1
-		myText.text="Strawberries clicked: "..tostring( counter )
+		myText.text="Fish clicked: "..tostring( counter )
 		animation_display( event )
 		--audio.play(soundID)
 		return true
@@ -55,7 +55,7 @@ physics.setGravity( 0.1, 1 )
 
 
 -- border init
-borderBodyElement = { density = 5.0, friction = 0.1, bounce = 0.7 }
+borderBodyElement = { density = 5.0, friction = 0.0, bounce = 1.0 }
 
 local borderTop = display.newRect( -50, 0, 1, display.viewableContentHeight*2 )
 --borderTop:setFillColor( 0, 0, 0, 0)		-- make invisible
@@ -85,7 +85,9 @@ for i=1,5 do
 	--view:applyForce(math.random(-100, 100), 50, view.x, view.y)
 	view.vx = math.random( 1, 5 )
 	view.vy = math.random( -2, 2 )
-	physics.addBody(view,"dynamic",{density=1.0, friction=0.9, bounce=0.3})
+	physics.addBody(view,"dynamic",{density=0.0, friction=0.0, bounce=1.0})
+	view.gravityScale = 0
+	view:setLinearVelocity( 1000, 400 )
 	view:addEventListener( "touch", unview )
 end  
 
