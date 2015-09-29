@@ -8,6 +8,7 @@ local halfH = display.viewableContentHeight / 2
 local unview = function( event )
 	if event.phase=="began" then
 		print ("TOUCHED")
+		event.target.isVisible=false
 		--view.isVisible=false
 		--audio.play(soundID)
 		return true
@@ -50,7 +51,9 @@ for i=1,5 do
 	view.vy = math.random( -2, 2 )
 	physics.addBody(view,"dynamic",{density=1.0, friction=0.9, bounce=0.3})
 	view:addEventListener( "touch", unview )
-end    
+end  
+
+ 
 
 
 
