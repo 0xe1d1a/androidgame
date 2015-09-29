@@ -3,19 +3,26 @@ local background = display.newImage("images/bg.jpg", display.contentCenterX, dis
 local file_name = "images/froot.png";
 local halfW = display.viewableContentWidth / 2
 local halfH = display.viewableContentHeight / 2
+--Dimiourgia Animation
 local sheet1 = graphics.newImageSheet( "animation2.png", { width=50, height=55, numFrames=6,  } )
 local instance1 = display.newSprite( sheet1, { name="cat", start=1, count=6, time=200, loopCount=1} )
 instance1.isVisible=false
 instance1.xScale = 1
 instance1.yScale = 1
+--end of animation init
+local counter=0
+text="Strawberries clicked: "..tostring(counter)
+local myText = display.newText(text, 80, 24, native.systemFont, 16 )
+myText:setFillColor( 1, 0, 0 )
 
 local unview = function( event )
 	if event.phase=="began" then
-		print ("TOUCHED")
+		counter=counter+1
+		myText.text="Strawberries clicked: "..tostring( counter )
 		event.target.isVisible=false
-		local whiteTLX, whiteTLY = event.target:localToContent( 0, 0 )
+		local whiteTLX, whiteTLY = event.target:localToContent( 0, 0 ) --finds coordinates of the touched item
 		instance1.x = whiteTLX
-        instance1.y = whiteTLY 
+        instance1.y = whiteTLY --passes touched coordinates to to animation 
         event.target.isVisible=false
 		display.remove( event.target )
 		instance1.isVisible=true
