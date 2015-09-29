@@ -3,13 +3,23 @@ local background = display.newImage("images/bg.jpg", display.contentCenterX, dis
 local file_name = "images/froot.png";
 local halfW = display.viewableContentWidth / 2
 local halfH = display.viewableContentHeight / 2
-
+local sheet1 = graphics.newImageSheet( "animation2.png", { width=50, height=55, numFrames=6,  } )
+local instance1 = display.newSprite( sheet1, { name="cat", start=1, count=6, time=200, loopCount=1} )
+instance1.isVisible=false
+instance1.xScale = 1
+instance1.yScale = 1
 
 local unview = function( event )
 	if event.phase=="began" then
 		print ("TOUCHED")
 		event.target.isVisible=false
-		--view.isVisible=false
+		local whiteTLX, whiteTLY = event.target:localToContent( 0, 0 )
+		instance1.x = whiteTLX
+        instance1.y = whiteTLY 
+        event.target.isVisible=false
+		instance1.isVisible=true
+		instance1:play()
+
 		--audio.play(soundID)
 		return true
 	end
