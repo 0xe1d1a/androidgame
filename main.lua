@@ -1,6 +1,6 @@
 
-local fn_img_froot = "images/froot.png"
-local fn_img_bg = "images/bg.jpg"
+local fn_img_froot = "images/bubble.png"
+local fn_img_bg = "images/background.jpg"
 local fn_snd_onclick = "sounds/froot.wav"
 local fn_img_anim2 = "images/animation2.png"
 
@@ -51,6 +51,7 @@ end
 
 local physics = require ("physics")
 physics.start();
+physics.setGravity( 0.1, 1 )
 
 
 -- border init
