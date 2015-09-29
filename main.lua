@@ -17,6 +17,7 @@ local unview = function( event )
 		instance1.x = whiteTLX
         instance1.y = whiteTLY 
         event.target.isVisible=false
+		display.remove( event.target )
 		instance1.isVisible=true
 		instance1:play()
 
