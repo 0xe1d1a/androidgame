@@ -10,7 +10,7 @@ local background = display.newImage(fn_img_bg, display.contentCenterX, display.c
 
 --display counter init
 local counter = 0
-text="Strawberries clicked: "..tostring(counter)
+text="Fish clicked: "..tostring(counter)
 local myText = display.newText(text, 80, 24, native.systemFont, 16 )
 myText:setFillColor( 1, 0, 0 )
 --end of display counter init
@@ -42,6 +42,9 @@ local unview = function( event )
 		counter=counter+1
 		myText.text="Fish clicked: "..tostring( counter )
 		animation_display( event )
+		if counter == 5 then
+			myText.text = "Well played :)"
+		end
 		--audio.play(soundID)
 		return true
 	end
@@ -55,7 +58,7 @@ physics.setGravity( 0.1, 1 )
 
 
 -- border init
-borderBodyElement = { density = 5.0, friction = 0.0, bounce = 1.0 }
+borderBodyElement = { density = 1.0, friction = 0.0, bounce = 1.0 }
 
 local borderTop = display.newRect( -50, 0, 1, display.viewableContentHeight*2 )
 --borderTop:setFillColor( 0, 0, 0, 0)		-- make invisible
@@ -85,9 +88,9 @@ for i=1,5 do
 	--view:applyForce(math.random(-100, 100), 50, view.x, view.y)
 	view.vx = math.random( 1, 5 )
 	view.vy = math.random( -2, 2 )
-	physics.addBody(view,"dynamic",{density=0.0, friction=0.0, bounce=1.0})
+	physics.addBody(view,"dynamic",{density=1.0, friction=0.0, bounce=1.0})
 	view.gravityScale = 0
-	view:setLinearVelocity( 1000, 400 )
+	view:setLinearVelocity( 20, 40 )
 	view:addEventListener( "touch", unview )
 end  
 
