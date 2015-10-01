@@ -12,11 +12,8 @@ local myData = require( "mydata" )
 -- 
 -- define local variables here
 --
-local currentScore          -- used to hold the numeric value of the current score
-local currentScoreDisplay   -- will be a display.newText() that draws the score on the screen
-local levelText             -- will be a display.newText() to let you know what level you're on
-local spawnTimer            -- will be used to hold the timer for the spawning engine
 
+local spawnTimer            -- will be used to hold the timer for the spawning engine
 local fn_img_fish = "images/bubble.png"
 local fn_img_bg = "images/background.jpg"
 local fn_snd_onclick = "sounds/froot.wav"
