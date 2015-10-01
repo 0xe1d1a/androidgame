@@ -1,5 +1,5 @@
 # androidgame
-our first android gaaaame yaaay
+our first android gaaaame yaaay !!
 
 Some lua notes
 --------------
