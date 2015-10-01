@@ -10,8 +10,9 @@ local background = display.newImage(fn_img_bg, display.contentCenterX, display.c
 
 --display counter init
 local counter = 0
-text="Fish clicked: "..tostring(counter)
-local myText = display.newText(text, 80, 24, native.systemFont, 16 )
+local counter_left = 15
+text="Get 10 fish! "..counter_left.." fish left Fish clicked: "..tostring( counter )
+local myText = display.newText(text, 100, 24, native.systemFont, 16 )
 myText:setFillColor( 1, 0, 0 )
 --end of display counter init
 
@@ -40,9 +41,9 @@ end
 local unview = function( event )
 	if event.phase=="began" then
 		counter=counter+1
-		myText.text="Fish clicked: "..tostring( counter )
+		myText.text="Get 10 fish! "..counter_left.." fish left! Fish clicked: "..tostring( counter )
 		animation_display( event )
-		if counter == 5 then
+		if counter == 10 then
 			myText.text = "Well played :)"
 		end
 		--audio.play(soundID)
@@ -78,23 +79,42 @@ physics.addBody( borderRight, "static", borderBodyElement )
 -- end of border init
 
 
+function countdown(event)
+	if counter == 10 then return end
+	display.remove( event.source.param )
+	event.source.param = nil
+	counter_left = counter_left - 1
+	myText.text="Get 10 fish! "..counter_left.." fish left! Fish clicked: "..tostring( counter )
+end
 
----- Spawn objects ----
-local halfW = display.viewableContentWidth / 2
-local halfH = display.viewableContentHeight / 2
-for i=1,5 do
-	local view = display.newImage(fn_img_froot);
-	view:translate( halfW + math.random( -100, 100 ), halfH + math.random( -100, 100 ) )
+function appear(event)
+	--view = display.newImage(fn_img_froot);
+	if counter == 10 then return end
+	local view = event.source.param
+	view.isVisible = true
+	view:translate( math.random( 50, display.actualContentWidth-50 ),  math.random( 50, display.actualContentHeight-50 ) )
 	--view:applyForce(math.random(-100, 100), 50, view.x, view.y)
-	view.vx = math.random( 1, 5 )
-	view.vy = math.random( -2, 2 )
+
 	physics.addBody(view,"dynamic",{density=1.0, friction=0.0, bounce=1.0})
 	view.gravityScale = 0
-	view:setLinearVelocity( 20, 40 )
+	view:setLinearVelocity( math.random(-300,300)	, math.random(-300,300) )
 	view:addEventListener( "touch", unview )
-end  
+end
+---- Spawn objects ----
+local halfW = display.actualContentWidth / 2
+local halfH = display.actualContentHeight / 2
+local t = 1000
 
- 
+for i=1,15 do
+	rand_time = math.random(1000,5000)
+	view = display.newImage(fn_img_froot);
+	view.isVisible = false
+	local cb_appear =  timer.performWithDelay( t, appear )
+	cb_appear.param = view
+	local cb_countdown = timer.performWithDelay( t+rand_time, countdown )
+	cb_countdown.param = cb_appear.param
+	t = t + rand_time
+end  
 
 
 
