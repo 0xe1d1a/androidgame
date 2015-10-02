@@ -21,6 +21,8 @@ local fn_img_anim2 = "images/animation2.png"
 local counter = 0
 local counter_left = 15
 local myText
+local _width = display.actualContentWidth
+local _height= display.actualContentHeight
 --
 -- define local functions here
 --
@@ -180,19 +182,19 @@ function scene:create( event )
     -- border init
     borderBodyElement = { density = 1.0, friction = 0.0, bounce = 1.0 }
 
-    local borderTop = display.newRect( -50, 0, 1, display.viewableContentHeight*2 )
+    local borderTop = display.newRect(0, 0, _width*2, 1)
     --borderTop:setFillColor( 0, 0, 0, 0)       -- make invisible
     physics.addBody( borderTop, "static", borderBodyElement )
 
-    local borderBottom = display.newRect( 0, 320, 2000, 1 ) --bot
+    local borderBottom = display.newRect( 0, _height, _width*2, 1 ) --bot
     --borderBottom:setFillColor( 0, 0, 0, 0)        -- make invisible
     physics.addBody( borderBottom, "static", borderBodyElement )
 
-    local borderLeft = display.newRect( 0, -5, 2000, 1 ) --top border
+    local borderLeft = display.newRect( 0, 0, 1, _height*2 ) --top border
     --borderLeft:setFillColor( 0, 0, 0, 0)      -- make invisible
     physics.addBody( borderLeft, "static", borderBodyElement )
 
-    local borderRight = display.newRect( 550, 250, 1, 500 ) --right border
+    local borderRight = display.newRect( _width, _height, 1, _height*2 ) --right border
     --borderRight:setFillColor( 0, 0, 0, 0)     -- make invisible
     physics.addBody( borderRight, "static", borderBodyElement )
     -- end of border init
