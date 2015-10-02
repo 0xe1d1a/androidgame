@@ -112,7 +112,7 @@ local function systemEvents(event)
         --
         -- Go to the menu
         --
-        composer.gotoScene( "menu", { time = 250, effect = "fade" } )
+        composer.gotoScene( "game", { time = 250, effect = "fade" } )
     end
     return true
 end
