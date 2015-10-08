@@ -21,8 +21,6 @@ local fn_img_anim2 = "images/animation2.png"
 local counter = 0
 local counter_left = 15
 local myText
-local _width = display.actualContentWidth
-local _height= display.actualContentHeight
 --
 -- define local functions here
 --
@@ -60,11 +58,11 @@ end
 local unview = function( event )
     if event.phase=="began" then
         counter = counter + 1
-        myText.text="Get 10 fish! "..counter_left.." fish left! Fish clicked: "..counter
+        --myText.text="Get 10 fish! "..counter_left.." fish left! Fish clicked: "..counter
         --animation_display( event )
         event.target:removeSelf( )
         if counter == 10 then
-            myText.text = "Well played :)"
+            --myText.text = "Well played :)"
         end
         --audio.play(soundID)
         return true
@@ -80,24 +78,37 @@ function countdown(event)
         return
     end
     counter_left = counter_left - 1
-    myText.text = "Get 10 fish! "..counter_left.." fish left! Fish clicked: "..counter
+    --myText.text = "Get 10 fish! "..counter_left.." fish left! Fish clicked: "..counter
 end
 
-function appear(event)
-    if counter_left == 1 or counter == 10 then
-        timer.cancel( spawnTimer )
-        return
-    end
-    local sceneGroup = scene.view  
-    local view = display.newImage(fn_img_fish);
-    view:translate( math.random( 50, display.actualContentWidth-50 ),  math.random( 50, display.actualContentHeight-50 ) )
-    physics.addBody(view,"dynamic",{density=1.0, friction=0.0, bounce=1.0})
+function spawnr(r, g, b)
+    local view = display.newCircle(display.actualContentWidth+50, math.random( 50, display.actualContentHeight-50 ), 10 )
+    view:setFillColor(r, g, b)
+    --view:translate( math.random( 50, display.actualContentWidth-50 ),  math.random( 50, display.actualContentHeight-50 ) )
+    physics.addBody(view,"dynamic",{density=0.0, friction=0.0, bounce=1.0})
     view.gravityScale = 0
-    view:setLinearVelocity( math.random(-300,300)   , math.random(-300,300) )
+    view:setLinearVelocity( math.random(-150,-100), 0 )
     view:addEventListener( "touch", unview )
+    return view
+end
+
+
+function appear(event)
+    --if counter_left == 1 or counter == 10 then
+    --    timer.cancel( spawnTimer )
+    --    return
+    --end
+    local sceneGroup = scene.view  
+    local x = math.random(0, 10)
+    local view
+    if x <= 4 then view = spawnr(1, 1, 0)
+    else view = spawnr(1, 0, 0) end
     sceneGroup:insert(view)
-    local timer_disappear = timer.performWithDelay( 1000, countdown )
-    timer_disappear.param = view
+
+    --old code commented--
+    --local view = display.newImage(fn_img_fish);
+    --local timer_disappear = timer.performWithDelay( 1000, countdown )
+    --timer_disappear.param = view
 end
 
 
@@ -148,11 +159,11 @@ function scene:create( event )
     -- scene:create(). This is why it was declared at the top of the module so it can be seen 
     -- everywhere in this module
 
-    text="Get 10 fish! "..counter_left.." fish left Fish clicked: "..counter
-    myText = display.newText(text, 135, 24, native.systemFont, 16 )
-    myText:setFillColor( 1, 0, 0 )
-    myText.alpha = 0
-    sceneGroup:insert( myText )
+    --text="Get 10 fish! "..counter_left.." fish left Fish clicked: "..counter
+    --myText = display.newText(text, 135, 24, native.systemFont, 16 )
+    --myText:setFillColor( 1, 0, 0 )
+    --myText.alpha = 0
+    --sceneGroup:insert( myText )
 
     -- 
     -- because we want to access this in multiple functions, we need to forward declare the variable and
@@ -179,6 +190,9 @@ function scene:create( event )
     iLoose.x = display.contentCenterX + 100
     iLoose.y = display.contentHeight - 60
 
+    local _width = display.actualContentWidth
+    local _height= display.actualContentHeight
+
     -- border init
     borderBodyElement = { density = 1.0, friction = 0.0, bounce = 1.0 }
 
@@ -190,13 +204,13 @@ function scene:create( event )
     --borderBottom:setFillColor( 0, 0, 0, 0)        -- make invisible
     physics.addBody( borderBottom, "static", borderBodyElement )
 
-    local borderLeft = display.newRect( 0, 0, 1, _height*2 ) --top border
+    --local borderLeft = display.newRect( 0, 0, 1, _height*2 ) --top border
     --borderLeft:setFillColor( 0, 0, 0, 0)      -- make invisible
-    physics.addBody( borderLeft, "static", borderBodyElement )
+    --physics.addBody( borderLeft, "static", borderBodyElement )
 
-    local borderRight = display.newRect( _width, _height, 1, _height*2 ) --right border
+    --local borderRight = display.newRect( _width, _height, 1, _height*2 ) --right border
     --borderRight:setFillColor( 0, 0, 0, 0)     -- make invisible
-    physics.addBody( borderRight, "static", borderBodyElement )
+    --physics.addBody( borderRight, "static", borderBodyElement )
     -- end of border init
 
 end
@@ -222,7 +236,7 @@ function scene:show( event )
     if event.phase == "did" then
         physics.start()
         transition.to( myText, { time = 450, alpha = 1 } )
-        spawnTimer = timer.performWithDelay( 1000, appear, -1 )
+        spawnTimer = timer.performWithDelay( 600, appear, -1 )
     else -- event.phase == "will"
         -- The "will" phase happens before the scene transitions on screen.  This is a great
         -- place to "reset" things that might be reset, i.e. move an object back to its starting
